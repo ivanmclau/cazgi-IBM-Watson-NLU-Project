@@ -5,6 +5,7 @@ import React from 'react';
 import axios from 'axios';
 
 class App extends React.Component {
+    
   state = {innercomp:<textarea rows="4" cols="50" id="textinput"/>,
             mode: "text",
           sentimentOutput:[],
@@ -48,14 +49,14 @@ class App extends React.Component {
 
       //Include code here to check the sentiment and fomrat the data accordingly
 
-      this.setState({sentimentOutput:response.data});
-      let output = response.data;
-      if(response.data === "positive") {
-        output = <div style={{color:"green",fontSize:20}}>{response.data}</div>
-      } else if (response.data === "negative"){
-        output = <div style={{color:"red",fontSize:20}}>{response.data}</div>
+      this.setState({sentimentOutput:response.data.label});
+      let output = response.data.label;
+      if(response.data.label === "positive") {
+        output = <div style={{color:"green",fontSize:100}}>{response.data.label}</div>
+      } else if (response.data.label === "negative"){
+        output = <div style={{color:"red",fontSize:100}}>{response.data.label}</div>
       } else {
-        output = <div style={{color:"orange",fontSize:20}}>{response.data}</div>
+        output = <div style={{color:"yellow",fontSize:100}}>{response.data.label}</div>
       }
       this.setState({sentimentOutput:output});
     });
@@ -93,6 +94,10 @@ class App extends React.Component {
       </div>
     );
     }
+
+    componentDidMount() {
+        document.title = "Sentiment Analyzer"
+  }
 }
 
 export default App;
